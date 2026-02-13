@@ -83,10 +83,10 @@ button {
 <body>
 
 <div class="container">
-  <h1>Will You Be My Valentine? 💖</h1>
+  <h1>Juju Baybee, will You Be My Valentine?🥺💖</h1>
   <div class="buttons">
-    <button id="yesBtn">YES 😍</button>
-    <button id="noBtn">No 🙈</button>
+    <button id="yesBtn">Yes 🥰</button>
+    <button id="noBtn">No 😔</button>
   </div>
 </div>
 
@@ -94,67 +94,48 @@ button {
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 
-let moveSpeed = 800;
+// Make movement smooth
+noBtn.style.position = "absolute";
+noBtn.style.transition = "all 0.2s ease";
 
-// Make NO button run away when mouse gets close
+// Move slightly away from cursor
 document.addEventListener("mousemove", (e) => {
   const rect = noBtn.getBoundingClientRect();
-  const distanceX = Math.abs(e.clientX - (rect.left + rect.width / 2));
-  const distanceY = Math.abs(e.clientY - (rect.top + rect.height / 2));
 
-  if (distanceX < 100 && distanceY < 60) {
-    moveButton();
+  const btnCenterX = rect.left + rect.width / 2;
+  const btnCenterY = rect.top + rect.height / 2;
+
+  const distanceX = e.clientX - btnCenterX;
+  const distanceY = e.clientY - btnCenterY;
+
+  const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+  // Only react when cursor is close
+  if (distance < 100) {
+    const moveDistance = 70; // how far it moves (in pixels)
+
+    const angle = Math.atan2(distanceY, distanceX);
+
+    const newX = rect.left - Math.cos(angle) * moveDistance;
+    const newY = rect.top - Math.sin(angle) * moveDistance;
+
+    noBtn.style.left = newX + "px";
+    noBtn.style.top = newY + "px";
   }
 });
 
-// Random movement every few seconds
-setInterval(() => {
-  moveButton();
-}, moveSpeed);
-
-function moveButton() {
-  const maxX = window.innerWidth - noBtn.offsetWidth;
-  const maxY = window.innerHeight - noBtn.offsetHeight;
-
-  const randomX = Math.random() * maxX;
-  const randomY = Math.random() * maxY;
-
-  noBtn.style.left = randomX + "px";
-  noBtn.style.top = randomY + "px";
-
-  // Increase difficulty each time
-  if (moveSpeed > 200) {
-    moveSpeed -= 50;
-  }
-}
-
-// YES button success screen
+// YES button
 yesBtn.addEventListener("click", () => {
   document.body.innerHTML = `
     <h1 style="color:white; font-size:3rem;">YAYYYY!!! 💖🥰</h1>
     <h2 style="color:white;">You just made me the happiest person alive 💕</h2>
   `;
-  startHearts();
 });
-
-function startHearts() {
-  setInterval(() => {
-    const heart = document.createElement("div");
-    heart.innerHTML = "💖";
-    heart.style.position = "absolute";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = Math.random() * 30 + 20 + "px";
-    heart.style.animation = "fall 5s linear infinite";
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-      heart.remove();
-    }, 5000);
-  }, 300);
-}
 </script>
+
 
 
 </body>
 </html>
+
 
