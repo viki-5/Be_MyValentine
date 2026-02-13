@@ -162,18 +162,73 @@ yesBtn.addEventListener("click", () => {
       align-items:center;
       height:100vh;
       flex-direction:column;
-      background:linear-gradient(135deg,#ff4d6d,#ff8fab);
+      background: radial-gradient(circle at center, #ff8fab, #ff4d6d);
       color:white;
       text-align:center;
       padding:20px;
+      overflow:hidden;
+      position:relative;
     ">
-      <h1 style="font-size:2.5rem;">SHE SAID YESSSS 💍💖</h1>
-      <p style="font-size:1.2rem;">Best Valentine's Ever 🥰</p>
-      <div style="font-size:3rem; margin-top:20px;">💖💖💖💖💖</div>
+      <h1 style="
+        font-size:2.5rem;
+        margin-bottom:10px;
+        animation: pop 0.6s ease;
+        text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      ">
+        SHE SAID YESSSS 💍✨
+      </h1>
+
+      <p style="
+        font-size:1.3rem;
+        margin-bottom:25px;
+        opacity:0.9;
+      ">
+        Best Valentine's Ever 🥰
+      </p>
+
+      <div id="celebration-hearts" style="font-size:2rem;"></div>
     </div>
+
+    <style>
+      @keyframes pop {
+        0% { transform: scale(0.5); opacity:0; }
+        100% { transform: scale(1); opacity:1; }
+      }
+
+      .burst-heart {
+        position:absolute;
+        font-size:20px;
+        animation: burst 2s ease-out forwards;
+      }
+
+      @keyframes burst {
+        0% { transform: translate(0,0) scale(0.5); opacity:1; }
+        100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity:0; }
+      }
+    </style>
   `;
+
+  // Create heart burst effect
+  for (let i = 0; i < 25; i++) {
+    const heart = document.createElement("div");
+    heart.className = "burst-heart";
+    heart.innerHTML = "💖";
+
+    heart.style.left = "50%";
+    heart.style.top = "50%";
+
+    const x = (Math.random() - 0.5) * 600 + "px";
+    const y = (Math.random() - 0.5) * 600 + "px";
+
+    heart.style.setProperty("--x", x);
+    heart.style.setProperty("--y", y);
+
+    document.body.appendChild(heart);
+  }
 });
+
 </script>
 
 </body>
 </html>
+
