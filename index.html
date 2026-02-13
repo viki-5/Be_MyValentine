@@ -94,48 +94,51 @@ button {
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 
-// Make movement smooth
-noBtn.style.position = "absolute";
-noBtn.style.transition = "all 0.2s ease";
+let scale = 1;
+let clickCount = 0;
 
-// Move slightly away from cursor
-document.addEventListener("mousemove", (e) => {
-  const rect = noBtn.getBoundingClientRect();
+const messages = [
+  "No 🙈",
+  "Are you sure? 🥺",
+  "Really sure?? 😢",
+  "Think again 💔",
+  "Last chance 😭",
+  "Okay fine... 😔"
+];
 
-  const btnCenterX = rect.left + rect.width / 2;
-  const btnCenterY = rect.top + rect.height / 2;
+noBtn.addEventListener("click", () => {
+  clickCount++;
 
-  const distanceX = e.clientX - btnCenterX;
-  const distanceY = e.clientY - btnCenterY;
+  // Shrink the button
+  scale -= 0.15;
+  noBtn.style.transform = `scale(${scale})`;
 
-  const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+  // Change text progressively
+  if (clickCount < messages.length) {
+    noBtn.textContent = messages[clickCount];
+  }
 
-  // Only react when cursor is close
-  if (distance < 100) {
-    const moveDistance = 70; // how far it moves (in pixels)
-
-    const angle = Math.atan2(distanceY, distanceX);
-
-    const newX = rect.left - Math.cos(angle) * moveDistance;
-    const newY = rect.top - Math.sin(angle) * moveDistance;
-
-    noBtn.style.left = newX + "px";
-    noBtn.style.top = newY + "px";
+  // When too small, remove it
+  if (scale <= 0.3) {
+    noBtn.style.display = "none";
   }
 });
 
-// YES button
 yesBtn.addEventListener("click", () => {
   document.body.innerHTML = `
-    <h1 style="color:white; font-size:3rem;">YAYYYY!!! 💖🥰</h1>
-    <h2 style="color:white;">You just made me the happiest person alive 💕</h2>
+    <div style="text-align:center; padding:40px;">
+      <h1 style="color:white; font-size:3rem;">YAYYYY!!! 💖🥰</h1>
+      <h2 style="color:white;">You just made me the happiest person alive 💕</h2>
+    </div>
   `;
 });
 </script>
 
 
 
+
 </body>
 </html>
+
 
 
