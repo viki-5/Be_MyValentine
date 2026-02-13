@@ -94,17 +94,45 @@ button {
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 
-noBtn.addEventListener("mouseover", () => {
-  const x = Math.random() * window.innerWidth - 100;
-  const y = Math.random() * window.innerHeight - 50;
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top = `${y}px`;
+let moveSpeed = 800;
+
+// Make NO button run away when mouse gets close
+document.addEventListener("mousemove", (e) => {
+  const rect = noBtn.getBoundingClientRect();
+  const distanceX = Math.abs(e.clientX - (rect.left + rect.width / 2));
+  const distanceY = Math.abs(e.clientY - (rect.top + rect.height / 2));
+
+  if (distanceX < 100 && distanceY < 60) {
+    moveButton();
+  }
 });
 
+// Random movement every few seconds
+setInterval(() => {
+  moveButton();
+}, moveSpeed);
+
+function moveButton() {
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+
+  // Increase difficulty each time
+  if (moveSpeed > 200) {
+    moveSpeed -= 50;
+  }
+}
+
+// YES button success screen
 yesBtn.addEventListener("click", () => {
   document.body.innerHTML = `
-    <h1 style="color:white; font-size:3rem;">YAY!!! 💕🥰</h1>
-    <h2 style="color:white;">You just made me the happiest person alive 💖</h2>
+    <h1 style="color:white; font-size:3rem;">YAYYYY!!! 💖🥰</h1>
+    <h2 style="color:white;">You just made me the happiest person alive 💕</h2>
   `;
   startHearts();
 });
@@ -112,10 +140,11 @@ yesBtn.addEventListener("click", () => {
 function startHearts() {
   setInterval(() => {
     const heart = document.createElement("div");
-    heart.classList.add("heart");
     heart.innerHTML = "💖";
+    heart.style.position = "absolute";
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.fontSize = Math.random() * 30 + 20 + "px";
+    heart.style.animation = "fall 5s linear infinite";
     document.body.appendChild(heart);
 
     setTimeout(() => {
@@ -125,5 +154,7 @@ function startHearts() {
 }
 </script>
 
+
 </body>
 </html>
+
