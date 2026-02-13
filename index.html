@@ -162,36 +162,43 @@ yesBtn.addEventListener("click", () => {
       align-items:center;
       height:100vh;
       flex-direction:column;
-      background: radial-gradient(circle at center, #ff8fab, #ff4d6d);
-      color:white;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       text-align:center;
       padding:20px;
-      overflow:hidden;
       position:relative;
+      overflow:hidden;
     ">
-      <h1 style="
-        font-size:2.5rem;
-        margin-bottom:10px;
+      <div style="
+        background:white;
+        padding:30px 25px;
+        border-radius:25px;
+        box-shadow:0 20px 40px rgba(0,0,0,0.15);
+        max-width:90%;
         animation: pop 0.6s ease;
-        text-shadow: 0 4px 12px rgba(0,0,0,0.3);
       ">
-        SHE SAID YESSSS 💍✨
-      </h1>
+        <h1 style="
+          font-size:2rem;
+          color:#ff4d6d;
+          margin-bottom:10px;
+        ">
+          SHE SAID YESSSS 💍✨
+        </h1>
 
-      <p style="
-        font-size:1.3rem;
-        margin-bottom:25px;
-        opacity:0.9;
-      ">
-        Best Valentine's Ever 🥰
-      </p>
+        <p style="
+          font-size:1.1rem;
+          color:#444;
+          margin-bottom:15px;
+        ">
+          Best Valentine's Ever 🥰
+        </p>
 
-      <div id="celebration-hearts" style="font-size:2rem;"></div>
+        <div style="font-size:2rem;">💖💖💖💖💖</div>
+      </div>
     </div>
 
     <style>
       @keyframes pop {
-        0% { transform: scale(0.5); opacity:0; }
+        0% { transform: scale(0.7); opacity:0; }
         100% { transform: scale(1); opacity:1; }
       }
 
@@ -208,7 +215,7 @@ yesBtn.addEventListener("click", () => {
     </style>
   `;
 
-  // Create heart burst effect
+  // Heart burst effect
   for (let i = 0; i < 25; i++) {
     const heart = document.createElement("div");
     heart.className = "burst-heart";
@@ -227,8 +234,10 @@ yesBtn.addEventListener("click", () => {
   }
 });
 
+
 </script>
 
 </body>
 </html>
+
 
